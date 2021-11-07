@@ -9,9 +9,9 @@ export enum REGION {
 export const URLS = {
     API_URL: (config: Config) => {
         if (config.isLive) {
-            return `https://api${REGION[config.region]}.klarna.com`;
+            return `https://api${config.region}.klarna.com`;
         } else {
-            return `https://api${REGION[config.region]}.playground.klarna.com`;
+            return `https://api${config.region}.playground.klarna.com`;
         }
     },
     ORDER_API_URL: (subscription: boolean, authorizationToken: string) => {

@@ -1,0 +1,65 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SessionStatus = exports.PaymentIdentifier = exports.PaymentMethod = exports.Locale = void 0;
+var Locale;
+(function (Locale) {
+    Locale["de_AT"] = "de-AT";
+    Locale["de_DE"] = "de-DE";
+    Locale["en_DE"] = "en-DE";
+    Locale["be_BE"] = "be-BE";
+    Locale["nl_BE"] = "nl-BE";
+    Locale["fr_BE"] = "fr-BE";
+    Locale["en_BE"] = "en-BE";
+    Locale["it_CH"] = "it-CH";
+    Locale["de_CH"] = "de-CH";
+    Locale["fr_CH"] = "fr-CH";
+    Locale["en_CH"] = "en-CH";
+    Locale["da_DK"] = "da-DK";
+    Locale["en_DK"] = "en-DK";
+    Locale["ex_ES"] = "es-ES";
+    Locale["ca_EX"] = "ca-ES";
+    Locale["en_ES"] = "en-ES";
+    Locale["fi_FI"] = "fi-FI";
+    Locale["sv_FI"] = "sv-FI";
+    Locale["en_FI"] = "en-FI";
+    Locale["en_GB"] = "en-GB";
+    Locale["it_IT"] = "it-IT";
+    Locale["en_IT"] = "en-IT";
+    Locale["nl_NL"] = "nl-NL";
+    Locale["en_NL"] = "en-NL";
+    Locale["nb_NO"] = "nb-NO";
+    Locale["en_NO"] = "en-NO";
+    Locale["pl_PL"] = "pl-PL";
+    Locale["en_PL"] = "en-PL";
+    Locale["sv_SE"] = "sv-SE";
+    Locale["en_SE"] = "en-SE";
+    Locale["en_US"] = "en-US";
+})(Locale = exports.Locale || (exports.Locale = {}));
+var PaymentMethod;
+(function (PaymentMethod) {
+    PaymentMethod["INVOICE"] = "invoice";
+    PaymentMethod["FIXED_AMOUNT"] = "fixed_amount";
+    PaymentMethod["PIX"] = "pix";
+    PaymentMethod["BASE_ACCOUNT"] = "base_account";
+    PaymentMethod["DEFERRED_INTEREST"] = "deferred_interest";
+    PaymentMethod["DIRECT_DEBIT"] = "direct_debit";
+    PaymentMethod["DIRECT_BANK_TRANSFER"] = "direct_bank_transfer";
+    PaymentMethod["B2B_INVOICE"] = "b2b_invoice";
+    PaymentMethod["CARD"] = "card";
+    PaymentMethod["SLICE_IT_BY_CARD"] = "slice_it_by_card";
+    PaymentMethod["PAY_LATER_BY_CARD"] = "pay_later_by_card";
+})(PaymentMethod = exports.PaymentMethod || (exports.PaymentMethod = {}));
+var PaymentIdentifier;
+(function (PaymentIdentifier) {
+    PaymentIdentifier["PAY_LATER"] = "Pay_later";
+    PaymentIdentifier["PAY_NOW"] = "Pay_now";
+    PaymentIdentifier["PAY_OVER_TIME"] = "Pay_over_time";
+    PaymentIdentifier["DIRECT_BANK_TRANSFER"] = "Direct_bank_transfer";
+    PaymentIdentifier["DIRECT_DEBIT"] = "Direct_debit";
+})(PaymentIdentifier = exports.PaymentIdentifier || (exports.PaymentIdentifier = {}));
+var SessionStatus;
+(function (SessionStatus) {
+    SessionStatus["COMPLETE"] = "complete";
+    SessionStatus["INCOMPLETE"] = "incomplete";
+})(SessionStatus = exports.SessionStatus || (exports.SessionStatus = {}));
+//# sourceMappingURL=CommonTypes.js.map
