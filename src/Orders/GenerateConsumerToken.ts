@@ -22,12 +22,12 @@ import { DataMismatch, NotAuthorized, ResourceMissing, UnknownError } from "../C
  export function GenerateConsumerToken(
     config: Config,
     authorizationToken: string,
-    order: GenerateConsumerTokenPayload
+    consumerToken: GenerateConsumerTokenPayload
 ): Promise<GenerateConsumerTokenResponse> {
     return new Promise<GenerateConsumerTokenResponse>((resolve, reject) => {
         const url = URLS.API_URL(config) + URLS.CONSUMER_TOKEN_API_URL(authorizationToken);
 
-        axios.post<GenerateConsumerTokenPayload, AxiosResponse<GenerateConsumerTokenResponse>>(url, order, {
+        axios.post<GenerateConsumerTokenPayload, AxiosResponse<GenerateConsumerTokenResponse>>(url, consumerToken, {
             headers: {
                 "Authorization": generateAuth(config.username, config.password),
                 "content-type": "application/json"
