@@ -5,10 +5,7 @@ const Orders_1 = require("./Orders");
 const Sessions_1 = require("./Sessions");
 class Klarna {
     constructor({ config }) {
-        this.config = config;
-    }
-    v100() {
-        return {
+        this.v100 = {
             orders: {
                 cancelAuthorization: (authorizationToken) => ((0, Orders_1.CancelAuthorization)(this.config, authorizationToken)),
                 generateConsumerToken: (authorizationToken, consumerToken) => ((0, Orders_1.GenerateConsumerToken)(this.config, authorizationToken, consumerToken)),
@@ -20,6 +17,7 @@ class Klarna {
                 updateCreditSession: (sessionId, session) => ((0, Sessions_1.UpdateCreditSession)(this.config, sessionId, session))
             }
         };
+        this.config = config;
     }
 }
 exports.Klarna = Klarna;

@@ -35,34 +35,32 @@ export class Klarna {
 
     config: Config;
     
+    v100: KlarnaVersion100= {
+        orders: {
+            cancelAuthorization: (authorizationToken: string) => (
+                CancelAuthorization(this.config, authorizationToken)
+            ),
+            generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => (
+                GenerateConsumerToken(this.config, authorizationToken, consumerToken)
+            ),
+            createOrder: (authorizationToken: string, order: CreateOrderPayload) => (
+                CreateOrder(this.config, authorizationToken, order)
+            )
+        },
+        sessions: {
+            createCreditSession: (session: CreateCreditSessionPayload) => (
+                CreateCreditSession(this.config, session)
+            ),
+            readCreditSession: (sessionId: string) => (
+                ReadCreditSession(this.config, sessionId)
+            ),
+            updateCreditSession: (sessionId: string, session: UpdateCreditSessionPayload) => (
+                UpdateCreditSession(this.config, sessionId, session)
+            )
+        }
+    };
+
     constructor({ config }: KlarnaProps) {
         this.config = config;
-    }
-
-    v100(): KlarnaVersion100 {
-        return {
-            orders: {
-                cancelAuthorization: (authorizationToken: string) => (
-                    CancelAuthorization(this.config, authorizationToken)
-                ),
-                generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => (
-                    GenerateConsumerToken(this.config, authorizationToken, consumerToken)
-                ),
-                createOrder: (authorizationToken: string, order: CreateOrderPayload) => (
-                    CreateOrder(this.config, authorizationToken, order)
-                )
-            },
-            sessions: {
-                createCreditSession: (session: CreateCreditSessionPayload) => (
-                    CreateCreditSession(this.config, session)
-                ),
-                readCreditSession: (sessionId: string) => (
-                    ReadCreditSession(this.config, sessionId)
-                ),
-                updateCreditSession: (sessionId: string, session: UpdateCreditSessionPayload) => (
-                    UpdateCreditSession(this.config, sessionId, session)
-                )
-            }
-        }   
     }
 }
