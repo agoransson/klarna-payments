@@ -14,4 +14,4 @@ import { GenerateConsumerTokenResponse } from "./GenerateConsumerTokenResponse";
  * @param order
  * @returns
  */
-export declare function GenerateConsumerToken(config: Config, authorizationToken: string, order: GenerateConsumerTokenPayload): Promise<GenerateConsumerTokenResponse>;
+export declare function GenerateConsumerToken(config: Config, authorizationToken: string, consumerToken: GenerateConsumerTokenPayload): Promise<GenerateConsumerTokenResponse>;

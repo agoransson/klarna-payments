@@ -21,10 +21,10 @@ const CommonErrors_1 = require("../CommonErrors");
  * @param order
  * @returns
  */
-function GenerateConsumerToken(config, authorizationToken, order) {
+function GenerateConsumerToken(config, authorizationToken, consumerToken) {
     return new Promise((resolve, reject) => {
         const url = utils_1.URLS.API_URL(config) + utils_1.URLS.CONSUMER_TOKEN_API_URL(authorizationToken);
-        axios_1.default.post(url, order, {
+        axios_1.default.post(url, consumerToken, {
             headers: {
                 "Authorization": (0, utils_1.generateAuth)(config.username, config.password),
                 "content-type": "application/json"
