@@ -1,2 +1,6 @@
-# klarna-payments-nodejs-wrapper
-Nodejs wrapper module for Klarna Payments API - https://developers.klarna.com/api/
+# Klarna Typescript API wrapper
+
+A wrapper for Klarna API written in Typescript.
+
+## Forked from klarna-payments-nodejs-wrapper
+https://github.com/vsaravind007/klarna-payments-nodejs-wrapper
