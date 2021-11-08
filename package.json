@@ -16,7 +16,6 @@
     "payments"
   ],
   "dependencies": {
-    "@agoransson/klarna-payments": "^1.0.6",
     "axios": "^0.24.0"
   },
   "devDependencies": {
