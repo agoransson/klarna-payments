@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@agoransson/klarna-payments@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@agoransson/klarna-payments/-/klarna-payments-1.0.6.tgz#cc44c818f1a217b2a7d86fa9197695d9f972f79d"
+  integrity sha512-VWdG1xi2JECc3tR14y/6U4fpGWsU6ybmstpZ+h9z9nqlvsg4RJ/fXtJ0JDGB4Y/QAGj7OBAN+sWp7Xf2ZBAO2A==
+  dependencies:
+    axios "^0.24.0"
+
 "@babel/cli@^7.16.0":
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.16.0.tgz#a729b7a48eb80b49f48a339529fc4129fd7bcef3"
