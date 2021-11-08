@@ -10,6 +10,9 @@ import { CreateCreditSessionResponse } from './Sessions/CreateCreditSessionRespo
 import { ReadCreditSessionResponse } from './Sessions/ReadCreditSessionResponse';
 import { UpdateCreditSessionPayload } from './Sessions/UpdateCreditSessionPayload';
 
+export * from './Orders';
+export * from './Sessions';
+
 export type KlarnaProps = {
     config: Config;
 }

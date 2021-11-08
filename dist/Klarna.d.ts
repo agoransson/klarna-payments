@@ -7,6 +7,8 @@ import { CreateCreditSessionPayload } from './Sessions/CreateCreditSessionPayloa
 import { CreateCreditSessionResponse } from './Sessions/CreateCreditSessionResponse';
 import { ReadCreditSessionResponse } from './Sessions/ReadCreditSessionResponse';
 import { UpdateCreditSessionPayload } from './Sessions/UpdateCreditSessionPayload';
+export * from './Orders';
+export * from './Sessions';
 export declare type KlarnaProps = {
     config: Config;
 };
@@ -29,4 +31,3 @@ export declare class Klarna {
     v100: KlarnaVersion100;
     constructor({ config }: KlarnaProps);
 }
-export {};
