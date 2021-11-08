@@ -15,6 +15,8 @@ const Orders_1 = require("./Orders");
 const Sessions_1 = require("./Sessions");
 __exportStar(require("./Orders"), exports);
 __exportStar(require("./Sessions"), exports);
+__exportStar(require("./CommonTypes"), exports);
+__exportStar(require("./CommonErrors"), exports);
 class Klarna {
     constructor({ config }) {
         this.v100 = {

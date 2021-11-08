@@ -1,7 +1,5 @@
-import { Locale } from '../dist/CommonTypes';
-import { Klarna } from '../dist/Klarna';
+import { Klarna, OrderLine, Locale } from '../dist/Klarna';
 import { REGION } from '../dist/utils';
-import { OrderLine } from '../src/CommonTypes';
 
 const klarna = new Klarna({
     config: {

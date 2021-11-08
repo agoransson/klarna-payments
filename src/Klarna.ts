@@ -12,6 +12,8 @@ import { UpdateCreditSessionPayload } from './Sessions/UpdateCreditSessionPayloa
 
 export * from './Orders';
 export * from './Sessions';
+export * from './CommonTypes';
+export * from './CommonErrors';
 
 export type KlarnaProps = {
     config: Config;
