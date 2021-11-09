@@ -138,9 +138,9 @@
                         <h5>1. Klarna account details (server)</h5>
                         <form id="set_account" action="http://localhost:8080/init" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-sm" name="username" placeholder="username" value="PK38975_05b17274791a">
-                                <input type="text" class="form-control form-control-sm" name="password" placeholder="password" value="jnelNDHdkKT2hwnL">
-                                <input type="text" class="form-control form-control-sm" name="region" placeholder="region" value="EU">
+                                <input type="text" class="form-control form-control-sm" name="username" placeholder="username">
+                                <input type="text" class="form-control form-control-sm" name="password" placeholder="password">
+                                <input type="text" class="form-control form-control-sm" name="region" placeholder="region">
                             </div>
                             <button type="submit" class="btn btn-primary">Set</button>
                         </form>
@@ -153,24 +153,24 @@
                         <h5>2. Create new credit session (server)</h5>
                         <form id="create_session" action="http://localhost:8080/createCreditSession" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-sm" name="locale" placeholder="locale" value="sv-SV">
-                                <input type="text" class="form-control form-control-sm" name="order_amount" placeholder="order_amount" value="1000">
+                                <input type="text" class="form-control form-control-sm" name="locale" placeholder="locale">
+                                <input type="text" class="form-control form-control-sm" name="order_amount" placeholder="order_amount">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][name]" placeholder="name" value="produkten">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][name]" placeholder="name">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][quantity]" placeholder="quantity" value="1">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][quantity]" placeholder="quantity">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][total_amount]" placeholder="total_amount" value="1000">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][total_amount]" placeholder="total_amount">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][unit_price]" placeholder="unit_price" value="1000">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][unit_price]" placeholder="unit_price">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control form-control-sm" name="purchase_country" placeholder="purchase_country" value="SE">
-                                <input type="text" class="form-control form-control-sm" name="purchase_currency" placeholder="purchase_currency" value="SEK">
+                                <input type="text" class="form-control form-control-sm" name="purchase_country" placeholder="purchase_country">
+                                <input type="text" class="form-control form-control-sm" name="purchase_currency" placeholder="purchase_currency">
                             </div>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
