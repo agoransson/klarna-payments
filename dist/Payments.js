@@ -10,20 +10,20 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Klarna = void 0;
+exports.Payments = void 0;
 const Orders_1 = require("./Orders");
 const Sessions_1 = require("./Sessions");
 __exportStar(require("./Orders"), exports);
 __exportStar(require("./Sessions"), exports);
 __exportStar(require("./CommonTypes"), exports);
 __exportStar(require("./CommonErrors"), exports);
-class Klarna {
+class Payments {
     constructor({ config }) {
         this.v100 = {
             orders: {
                 cancelAuthorization: (authorizationToken) => ((0, Orders_1.CancelAuthorization)(this.config, authorizationToken)),
                 generateConsumerToken: (authorizationToken, consumerToken) => ((0, Orders_1.GenerateConsumerToken)(this.config, authorizationToken, consumerToken)),
-                createOrder: (authorizationToken, order) => ((0, Orders_1.CreateOrder)(this.config, authorizationToken, order))
+                createOrder: (authorizationToken, order, recurring = false) => ((0, Orders_1.CreateOrder)(this.config, authorizationToken, order, recurring))
             },
             sessions: {
                 createCreditSession: (session) => ((0, Sessions_1.CreateCreditSession)(this.config, session)),
@@ -34,5 +34,5 @@ class Klarna {
         this.config = config;
     }
 }
-exports.Klarna = Klarna;
-//# sourceMappingURL=Klarna.js.map
+exports.Payments = Payments;
+//# sourceMappingURL=Payments.js.map

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Klarna test</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            body { padding-top: 50px; }
+            input, textarea, button { margin-bottom: 10px !important; }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(document).ready(() => {
+                $.fn.serializeObject = function() {
+                    var o = {};
+                    var a = this.serializeArray();
+                    $.each(a, function() {
+                        if (o[this.name]) {
+                            if (!o[this.name].push) {
+                                o[this.name] = [o[this.name]];
+                            }
+                            o[this.name].push(this.value || '');
+                        } else {
+                            o[this.name] = this.value || '';
+                        }
+                    });
+                    return o;
+                };
+                
+                $("#set_account").submit((event) => {
+                    event.preventDefault();
+
+                    $.ajax({
+                        type: $("#set_account").attr("method"),
+                        url: $("#set_account").attr("action"),
+                        data: $("#set_account").serializeObject(),
+                        dataType: "json",
+                        success: (data) => {
+                            $("#set_account_result").val(JSON.stringify(data, null, 2));
+                        },
+                        error: (xhr, status, error) => {
+                            console.error(error);
+                        }
+                    });
+
+                    return false;
+                });
+
+                $("#create_session").submit((event) => {
+                    event.preventDefault();
+
+                    $.ajax({
+                        type: $("#create_session").attr("method"),
+                        url: $("#create_session").attr("action"),
+                        data: $("#create_session").serializeObject(),
+                        dataType: "json",
+                        success: (data) => {
+                            $("#create_session_result").val(JSON.stringify(data, null, 2));
+                            $("input[name=authorizationToken]").val(data.authorizationToken);
+                        
+                            Klarna.Payments.init({
+                                client_token: data.client_token
+                            });
+
+                            Klarna.Payments.load({
+                                container: '#klarna-payments-container',
+                                payment_method_category: 'pay_later'
+                            }, (res) => {
+                                const { show_form } = res || undefined;
+
+                                if (show_form) {
+                                    // ?? Authorize?
+                                } else {
+                                    const { error } = res;
+                                    console.error(error)
+                                }
+                            });
+                        },
+                        error: (xhr, status, error) => {
+                            console.error(error);
+                        }
+                    });
+
+                    return false;
+                });
+
+                $("#authorize").on('click', (event) => {
+                    event.preventDefault();
+
+                    Klarna.Payments.authorize({
+                        payment_method_category: "pay_later"
+                    }, {}, function(res) {
+                        const { approved, authorization_token } = res;
+
+                        $("#authorize_result").val(JSON.stringify(res, null, 2));
+
+                        if (approved) {
+                            $("input[name=authorizationToken]").val(authorization_token);
+                        }
+                    });
+
+                    return false;
+                });
+
+                $("#create_order").submit((event) => {
+                    event.preventDefault();
+
+                    const authorizationToken = $("input[name=authorizationToken]").val();
+                    
+                    $.ajax({
+                        type: $("#create_order").attr("method"),
+                        url: `${$("#create_order").attr("action")}/${authorizationToken}`,
+                        data: $("#create_session").serializeObject(),
+                        dataType: "json",
+                        success: (data) => {
+                            console.log('DATA');
+                            console.log(data)
+                            $("#create_order_result").val(JSON.stringify(data, null, 2));
+                            $("input[name=authorizationToken]").val(data.authorizationToken);
+                        },
+                        error: (xhr, status, error) => {
+                            console.error(error);
+                        }
+                    });
+
+                    return false;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Klarna payments test.</h1>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="padding: 10px; margin-bottom: 10px;">
+                        <h5>1. Klarna account details (server)</h5>
+                        <form id="set_account" action="http://localhost:8080/init" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" name="username" placeholder="username" value="PK38975_05b17274791a">
+                                <input type="text" class="form-control form-control-sm" name="password" placeholder="password" value="jnelNDHdkKT2hwnL">
+                                <input type="text" class="form-control form-control-sm" name="region" placeholder="region" value="EU">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Set</button>
+                        </form>
+
+                        <textarea class="form-control" id="set_account_result" rows="5" readonly></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="padding: 10px; margin-bottom: 10px;">
+                        <h5>2. Create new credit session (server)</h5>
+                        <form id="create_session" action="http://localhost:8080/createCreditSession" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" name="locale" placeholder="locale" value="sv-SV">
+                                <input type="text" class="form-control form-control-sm" name="order_amount" placeholder="order_amount" value="1000">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][name]" placeholder="name" value="produkten">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][quantity]" placeholder="quantity" value="1">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][total_amount]" placeholder="total_amount" value="1000">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control form-control-sm" name="order_lines[0][unit_price]" placeholder="unit_price" value="1000">
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" name="purchase_country" placeholder="purchase_country" value="SE">
+                                <input type="text" class="form-control form-control-sm" name="purchase_currency" placeholder="purchase_currency" value="SEK">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+
+                        <textarea class="form-control" id="create_session_result" rows="5" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <h5>3. Client-side (display widget)</h5>
+                    <div id="klarna-payments-container" style="width: 280px;"></div>
+                </div>
+                <div class="col">
+                    <h5>4. Client-side (authorization)</h5>
+                    <button id="authorize" class="btn btn-primary">Authorize purchase</button>
+                    
+                    <textarea class="form-control" id="authorize_result" rows="5" readonly></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="padding: 10px; margin-bottom: 10px;">
+                        <h5>4. Create new order (server)</h5>
+                        <form id="create_order" action="http://localhost:8080/createNewOrder" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" name="authorizationToken" placeholder="authorizationToken">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+
+                        <textarea class="form-control" id="create_order_result" rows="5" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <script src="https://x.klarnacdn.net/kp/lib/v1/api.js" async></script>
+    </body>
+</html>

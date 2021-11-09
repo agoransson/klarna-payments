@@ -36,6 +36,7 @@ function CreateCreditSession(config, session) {
             switch (response.status) {
                 case 200:
                     resolve(response.data);
+                    return;
                 case 400:
                     throw new UnableToCreateCreditSession_1.UnableToCreateCreditSession();
                 case 403:

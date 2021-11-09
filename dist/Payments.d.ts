@@ -11,25 +11,25 @@ export * from './Orders';
 export * from './Sessions';
 export * from './CommonTypes';
 export * from './CommonErrors';
-export declare type KlarnaProps = {
+declare type PaymentsProps = {
     config: Config;
 };
 declare type OrdersVersion100 = {
     cancelAuthorization: (authorizationToken: string) => Promise<void>;
     generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => Promise<GenerateConsumerTokenResponse>;
-    createOrder: (authorizationToken: string, order: CreateOrderPayload) => Promise<CreateOrderResponse>;
+    createOrder: (authorizationToken: string, order: CreateOrderPayload, recurring: boolean) => Promise<CreateOrderResponse>;
 };
 declare type SessionsVersion100 = {
     createCreditSession: (session: CreateCreditSessionPayload) => Promise<CreateCreditSessionResponse>;
     readCreditSession: (sessionId: string) => Promise<ReadCreditSessionResponse>;
     updateCreditSession: (sessionId: string, session: UpdateCreditSessionPayload) => Promise<void>;
 };
-declare type KlarnaVersion100 = {
+declare type PaymentsVersion100 = {
     orders: OrdersVersion100;
     sessions: SessionsVersion100;
 };
-export declare class Klarna {
+export declare class Payments {
     config: Config;
-    v100: KlarnaVersion100;
-    constructor({ config }: KlarnaProps);
+    v100: PaymentsVersion100;
+    constructor({ config }: PaymentsProps);
 }

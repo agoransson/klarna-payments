@@ -37,6 +37,7 @@ function GenerateConsumerToken(config, authorizationToken, consumerToken) {
             switch (response.status) {
                 case 200:
                     resolve(response.data);
+                    return;
                 case 400:
                     throw new UnableToGenerateConsumerToken_1.UnableToGenerateConsumerToken();
                 case 403:

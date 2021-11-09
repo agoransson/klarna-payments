@@ -42,6 +42,7 @@ function CreateOrder(config, authorizationToken, order, recurring) {
             switch (response.status) {
                 case 200:
                     resolve(response.data);
+                    return;
                 case 400:
                     throw new UnableToCreateOrder_1.UnableToCreateOrder();
                 case 403:

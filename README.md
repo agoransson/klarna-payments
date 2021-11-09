@@ -1,6 +1,6 @@
-# Klarna Typescript API wrapper
+# Typescript wrapper for Klarna Payments API
 
-A wrapper for Klarna API written in Typescript.
+TODO
 
 ## Forked from klarna-payments-nodejs-wrapper
 https://github.com/vsaravind007/klarna-payments-nodejs-wrapper

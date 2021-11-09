@@ -32,6 +32,7 @@ function CancelAuthorization(config, authorizationToken) {
             switch (response.status) {
                 case 204:
                     resolve();
+                    return;
                 case 403:
                     throw new CommonErrors_1.NotAuthorized();
                 case 404:

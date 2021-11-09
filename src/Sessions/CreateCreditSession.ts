@@ -38,6 +38,7 @@ import { UnableToCreateCreditSession } from "./UnableToCreateCreditSession";
             switch(response.status) {
                 case 200:
                     resolve(response.data);
+                    return;
                 case 400:
                     throw new UnableToCreateCreditSession();
                 case 403:

@@ -15,14 +15,14 @@ export * from './Sessions';
 export * from './CommonTypes';
 export * from './CommonErrors';
 
-export type KlarnaProps = {
+type PaymentsProps = {
     config: Config;
 }
 
 type OrdersVersion100 = {
     cancelAuthorization: (authorizationToken: string) => Promise<void>,
     generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => Promise<GenerateConsumerTokenResponse>,
-    createOrder: (authorizationToken: string, order: CreateOrderPayload) => Promise<CreateOrderResponse>
+    createOrder: (authorizationToken: string, order: CreateOrderPayload, recurring: boolean) => Promise<CreateOrderResponse>
 }
 
 type SessionsVersion100 = {
@@ -31,16 +31,16 @@ type SessionsVersion100 = {
     updateCreditSession: (sessionId: string, session: UpdateCreditSessionPayload) => Promise<void>;
 }
 
-type KlarnaVersion100 = {
+type PaymentsVersion100 = {
     orders: OrdersVersion100;
     sessions: SessionsVersion100;
 }
 
-export class Klarna {
+export class Payments {
 
     config: Config;
     
-    v100: KlarnaVersion100= {
+    v100: PaymentsVersion100 = {
         orders: {
             cancelAuthorization: (authorizationToken: string) => (
                 CancelAuthorization(this.config, authorizationToken)
@@ -48,8 +48,8 @@ export class Klarna {
             generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => (
                 GenerateConsumerToken(this.config, authorizationToken, consumerToken)
             ),
-            createOrder: (authorizationToken: string, order: CreateOrderPayload) => (
-                CreateOrder(this.config, authorizationToken, order)
+            createOrder: (authorizationToken: string, order: CreateOrderPayload, recurring: boolean = false) => (
+                CreateOrder(this.config, authorizationToken, order, recurring)
             )
         },
         sessions: {
@@ -65,7 +65,7 @@ export class Klarna {
         }
     };
 
-    constructor({ config }: KlarnaProps) {
+    constructor({ config }: PaymentsProps) {
         this.config = config;
     }
 }

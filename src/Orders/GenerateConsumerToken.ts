@@ -40,6 +40,7 @@ import { DataMismatch, NotAuthorized, ResourceMissing, UnknownError } from "../C
             switch(response.status) {
                 case 200:
                     resolve(response.data);
+                    return;
                 case 400:
                     throw new UnableToGenerateConsumerToken();
                 case 403:

@@ -36,6 +36,7 @@ import { UnableToUpdateCreditSession } from "./UnableToUpdateCreditSession";
             switch(response.status) {
                 case 204:
                     resolve();
+                    return;
                 case 400:
                     throw new UnableToUpdateCreditSession();
                 case 403:

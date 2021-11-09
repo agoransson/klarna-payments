@@ -36,6 +36,7 @@ import { NotAuthorized, UnknownError } from "../CommonErrors";
             switch(response.status) {
                 case 200:
                     resolve(response.data);
+                    return;
                 case 403:
                     throw new NotAuthorized();
                 default:

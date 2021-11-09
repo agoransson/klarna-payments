@@ -16,9 +16,10 @@ export const URLS = {
     },
     ORDER_API_URL: (subscription: boolean, authorizationToken: string) => {
         if (subscription) {
-            return `/payments/v1/authorizations/${authorizationToken}/order`;
+            // TODO: How does subscriptions really work?
+            throw new Error("Subscription not supported yet!");
         } else {
-            return `/customer-token/v1/tokens/${authorizationToken}/order`;
+            return `/payments/v1/authorizations/${authorizationToken}/order`;
         }
     },
     CANCEL_AUTHORIZATION_API_URL: (authorizationToken: string) => {

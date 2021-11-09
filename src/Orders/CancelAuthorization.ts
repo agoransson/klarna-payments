@@ -32,6 +32,7 @@ import { NotAuthorized, ResourceMissing, UnknownError } from "../CommonErrors";
             switch(response.status) {
                 case 204:
                     resolve();
+                    return;
                 case 403:
                     throw new NotAuthorized();
                 case 404:

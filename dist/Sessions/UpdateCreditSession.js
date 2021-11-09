@@ -34,6 +34,7 @@ function UpdateCreditSession(config, sessionId, session) {
             switch (response.status) {
                 case 204:
                     resolve();
+                    return;
                 case 400:
                     throw new UnableToUpdateCreditSession_1.UnableToUpdateCreditSession();
                 case 403:
