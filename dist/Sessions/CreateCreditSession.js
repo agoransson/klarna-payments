@@ -38,11 +38,13 @@ function CreateCreditSession(config, session) {
                     resolve(response.data);
                     return;
                 case 400:
-                    throw new UnableToCreateCreditSession_1.UnableToCreateCreditSession();
+                    reject(new UnableToCreateCreditSession_1.UnableToCreateCreditSession());
+                    return;
                 case 403:
-                    throw new CommonErrors_1.NotAuthorized();
+                    reject(new CommonErrors_1.NotAuthorized());
+                    return;
                 default:
-                    throw new CommonErrors_1.UnknownError();
+                    reject(new CommonErrors_1.UnknownError());
             }
         }, (error) => {
             reject(error);

@@ -1,6 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SessionStatus = exports.PaymentIdentifier = exports.PaymentMethod = exports.Locale = void 0;
+exports.SessionStatus = exports.PaymentIdentifier = exports.PaymentMethod = exports.Locale = exports.OrderType = void 0;
+var OrderType;
+(function (OrderType) {
+    OrderType["PHYSICAL"] = "physical";
+    OrderType["DISCOUNT"] = "discount";
+    OrderType["SHIPPING_FEE"] = "shipping_fee";
+    OrderType["SALES_TAX"] = "sales_tax";
+    OrderType["DIGITAL"] = "digital";
+    OrderType["GIFT_CARD"] = "gift_card";
+    OrderType["STORE_CREDIT"] = "store_credit";
+    OrderType["SURCHARGE"] = "surcharge";
+})(OrderType = exports.OrderType || (exports.OrderType = {}));
 var Locale;
 (function (Locale) {
     Locale["de_AT"] = "de-AT";

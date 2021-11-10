@@ -5,6 +5,17 @@ export type ProductIdentifiers = {
     manufacturer_part_number?: string;
 }
 
+export enum OrderType {
+    PHYSICAL = "physical",
+    DISCOUNT = "discount",
+    SHIPPING_FEE = "shipping_fee",
+    SALES_TAX = "sales_tax",
+    DIGITAL = "digital",
+    GIFT_CARD = "gift_card",
+    STORE_CREDIT = "store_credit",
+    SURCHARGE = "surcharge"
+}
+
 export type OrderLine = {
     image_url?: string;
     merchant_data?: string;
@@ -18,7 +29,7 @@ export type OrderLine = {
     total_amount: number;
     total_discount_amount?: number;
     total_tax_amount?: number;
-    type?: string;
+    type?: OrderType;
     unit_price: number;
 }
 

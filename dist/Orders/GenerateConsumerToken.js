@@ -39,15 +39,19 @@ function GenerateConsumerToken(config, authorizationToken, consumerToken) {
                     resolve(response.data);
                     return;
                 case 400:
-                    throw new UnableToGenerateConsumerToken_1.UnableToGenerateConsumerToken();
+                    reject(new UnableToGenerateConsumerToken_1.UnableToGenerateConsumerToken());
+                    return;
                 case 403:
-                    throw new CommonErrors_1.NotAuthorized();
+                    reject(new CommonErrors_1.NotAuthorized());
+                    return;
                 case 404:
-                    throw new CommonErrors_1.ResourceMissing();
+                    reject(new CommonErrors_1.ResourceMissing());
+                    return;
                 case 409:
-                    throw new CommonErrors_1.DataMismatch();
+                    reject(new CommonErrors_1.DataMismatch());
+                    return;
                 default:
-                    throw new CommonErrors_1.UnknownError();
+                    reject(new CommonErrors_1.UnknownError());
             }
         }, (error) => {
             reject(error);

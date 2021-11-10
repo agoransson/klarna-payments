@@ -48,15 +48,19 @@ import { DataMismatch, NotAuthorized, ResourceMissing, UnknownError } from "../C
                     resolve(response.data);
                     return;
                 case 400:
-                    throw new UnableToCreateOrder();
+                    reject(new UnableToCreateOrder());
+                    return;
                 case 403:
-                    throw new NotAuthorized();
+                    reject(new NotAuthorized());
+                    return;
                 case 404:
-                    throw new ResourceMissing();
+                    reject(new ResourceMissing());
+                    return;
                 case 409:
-                    throw new DataMismatch();
+                    reject(new DataMismatch());
+                    return;
                 default:
-                    throw new UnknownError();
+                    reject(new UnknownError());
             }
         }, (error) => {
             reject(error);

@@ -38,9 +38,10 @@ import { NotAuthorized, UnknownError } from "../CommonErrors";
                     resolve(response.data);
                     return;
                 case 403:
-                    throw new NotAuthorized();
+                    reject(new NotAuthorized());
+                    return;
                 default:
-                    throw new UnknownError();
+                    reject(new UnknownError());
             }
         }, (error) => {
             reject(error);

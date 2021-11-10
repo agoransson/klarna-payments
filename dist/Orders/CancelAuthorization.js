@@ -34,11 +34,13 @@ function CancelAuthorization(config, authorizationToken) {
                     resolve();
                     return;
                 case 403:
-                    throw new CommonErrors_1.NotAuthorized();
+                    reject(new CommonErrors_1.NotAuthorized());
+                    return;
                 case 404:
-                    throw new CommonErrors_1.ResourceMissing();
+                    reject(new CommonErrors_1.ResourceMissing());
+                    return;
                 default:
-                    throw new CommonErrors_1.UnknownError();
+                    reject(new CommonErrors_1.UnknownError());
             }
         }, (error) => {
             reject(error);

@@ -4,6 +4,16 @@ export declare type ProductIdentifiers = {
     global_trade_item_number?: string;
     manufacturer_part_number?: string;
 };
+export declare enum OrderType {
+    PHYSICAL = "physical",
+    DISCOUNT = "discount",
+    SHIPPING_FEE = "shipping_fee",
+    SALES_TAX = "sales_tax",
+    DIGITAL = "digital",
+    GIFT_CARD = "gift_card",
+    STORE_CREDIT = "store_credit",
+    SURCHARGE = "surcharge"
+}
 export declare type OrderLine = {
     image_url?: string;
     merchant_data?: string;
@@ -17,7 +27,7 @@ export declare type OrderLine = {
     total_amount: number;
     total_discount_amount?: number;
     total_tax_amount?: number;
-    type?: string;
+    type?: OrderType;
     unit_price: number;
 };
 export declare type OrderOptions = {

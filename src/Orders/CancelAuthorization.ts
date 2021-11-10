@@ -34,11 +34,13 @@ import { NotAuthorized, ResourceMissing, UnknownError } from "../CommonErrors";
                     resolve();
                     return;
                 case 403:
-                    throw new NotAuthorized();
+                    reject(new NotAuthorized());
+                    return;
                 case 404:
-                    throw new ResourceMissing();
+                    reject(new ResourceMissing());
+                    return;
                 default:
-                    throw new UnknownError();
+                    reject(new UnknownError());
             }
         }, (error) => {
             reject(error);
