@@ -1,34 +1,35 @@
-export interface KlarnaError {
-    getCode?(): number;
-    getMessage?(): string;
-}
+export abstract class KlarnaError extends Error {
+    code?: number;
 
-export class UnknownError implements KlarnaError {
-}
+    constructor(message: string, code?: number) {
+        super(message);
 
-export class NotAuthorized implements KlarnaError {
-    getCode() {
-        return 403;
-    }
-    getMessage() {
-        return "You were not authorized to execute this operation.";
+        if (code) {
+            this.code = code;
+        }
     }
 }
 
-export class ResourceMissing implements KlarnaError {
-    getCode() {
-        return 404;
-    }
-    getMessage() {
-        return `The resource does not exist.`;
+export class UnknownError extends KlarnaError {
+    constructor() {
+        super("An unknown error occured.");
     }
 }
 
-export class DataMismatch implements KlarnaError {
-    getCode() {
-        return 409;
+export class NotAuthorized extends KlarnaError {
+    constructor() {
+        super("You were not authorized to execute this operation.", 403);
     }
-    getMessage() {
-        return "The data in the request does not match the session for the authorization";
+}
+
+export class ResourceMissing extends KlarnaError {
+    constructor() {
+        super("The resource does not exist.", 404);
+    }
+}
+
+export class DataMismatch extends KlarnaError {
+    constructor() {
+        super("The data in the request does not match the session for the authorization", 409);
     }
 }

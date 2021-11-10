@@ -28,22 +28,27 @@ function ReadCreditSession(config, sessionId) {
                 "content-type": "application/json"
             }
         })
-            .then((response) => {
+            .then(({ data }) => {
             if (!config.isLive) {
-                console.log(response);
+                console.log(data);
             }
-            switch (response.status) {
-                case 200:
-                    resolve(response.data);
-                    return;
-                case 403:
-                    reject(new CommonErrors_1.NotAuthorized());
-                    return;
-                default:
-                    reject(new CommonErrors_1.UnknownError());
+            resolve(data);
+        })
+            .catch((error) => {
+            const { response } = error;
+            if (response) {
+                const { status } = response;
+                switch (status) {
+                    case 403:
+                        reject(new CommonErrors_1.NotAuthorized());
+                        return;
+                    default:
+                        reject(new CommonErrors_1.UnknownError());
+                }
             }
-        }, (error) => {
-            reject(error);
+            else {
+                reject(error);
+            }
         });
     });
 }

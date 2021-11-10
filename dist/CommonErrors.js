@@ -1,33 +1,36 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DataMismatch = exports.ResourceMissing = exports.NotAuthorized = exports.UnknownError = void 0;
-class UnknownError {
+exports.DataMismatch = exports.ResourceMissing = exports.NotAuthorized = exports.UnknownError = exports.KlarnaError = void 0;
+class KlarnaError extends Error {
+    constructor(message, code) {
+        super(message);
+        if (code) {
+            this.code = code;
+        }
+    }
+}
+exports.KlarnaError = KlarnaError;
+class UnknownError extends KlarnaError {
+    constructor() {
+        super("An unknown error occured.");
+    }
 }
 exports.UnknownError = UnknownError;
-class NotAuthorized {
-    getCode() {
-        return 403;
-    }
-    getMessage() {
-        return "You were not authorized to execute this operation.";
+class NotAuthorized extends KlarnaError {
+    constructor() {
+        super("You were not authorized to execute this operation.", 403);
     }
 }
 exports.NotAuthorized = NotAuthorized;
-class ResourceMissing {
-    getCode() {
-        return 404;
-    }
-    getMessage() {
-        return `The resource does not exist.`;
+class ResourceMissing extends KlarnaError {
+    constructor() {
+        super("The resource does not exist.", 404);
     }
 }
 exports.ResourceMissing = ResourceMissing;
-class DataMismatch {
-    getCode() {
-        return 409;
-    }
-    getMessage() {
-        return "The data in the request does not match the session for the authorization";
+class DataMismatch extends KlarnaError {
+    constructor() {
+        super("The data in the request does not match the session for the authorization", 409);
     }
 }
 exports.DataMismatch = DataMismatch;

@@ -25,25 +25,30 @@ function CancelAuthorization(config, authorizationToken) {
                 "content-type": "application/json"
             }
         })
-            .then((response) => {
+            .then((reponse) => {
             if (!config.isLive) {
-                console.log(response);
+                console.log(reponse);
             }
-            switch (response.status) {
-                case 204:
-                    resolve();
-                    return;
-                case 403:
-                    reject(new CommonErrors_1.NotAuthorized());
-                    return;
-                case 404:
-                    reject(new CommonErrors_1.ResourceMissing());
-                    return;
-                default:
-                    reject(new CommonErrors_1.UnknownError());
+            resolve();
+        })
+            .catch((error) => {
+            const { response } = error;
+            if (response) {
+                const { status } = response;
+                switch (status) {
+                    case 403:
+                        reject(new CommonErrors_1.NotAuthorized());
+                        return;
+                    case 404:
+                        reject(new CommonErrors_1.ResourceMissing());
+                        return;
+                    default:
+                        reject(new CommonErrors_1.UnknownError());
+                }
             }
-        }, (error) => {
-            reject(error);
+            else {
+                reject(error);
+            }
         });
     });
 }

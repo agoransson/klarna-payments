@@ -1,5 +1,5 @@
 import { Config } from "../Config";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { generateAuth, URLS } from "../utils";
 import { ReadCreditSessionResponse } from "./ReadCreditSessionResponse";
 import { NotAuthorized, UnknownError } from "../CommonErrors";
@@ -29,22 +29,29 @@ import { NotAuthorized, UnknownError } from "../CommonErrors";
                 "content-type": "application/json"
             }
         })
-        .then((response) => {
+        .then(({ data }: AxiosResponse<ReadCreditSessionResponse>) => {
             if (!config.isLive) {
-                console.log(response);
+                console.log(data);
             }
-            switch(response.status) {
-                case 200:
-                    resolve(response.data);
-                    return;
-                case 403:
-                    reject(new NotAuthorized());
-                    return;
-                default:
-                    reject(new UnknownError());
+
+            resolve(data);
+        })
+        .catch((error: AxiosError) => {
+            const { response } = error;
+            
+            if (response) {
+                const { status } = response;
+
+                switch(status) {
+                    case 403:
+                        reject(new NotAuthorized());
+                        return;
+                    default:
+                        reject(new UnknownError());
+                }
+            } else {
+                reject(error);
             }
-        }, (error) => {
-            reject(error);
         });
     });
 }

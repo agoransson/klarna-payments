@@ -1,5 +1,4 @@
 import { KlarnaError } from "../CommonErrors";
-export declare class UnableToUpdateCreditSession implements KlarnaError {
-    getCode(): number;
-    getMessage(): string;
+export declare class UnableToUpdateCreditSession extends KlarnaError {
+    constructor();
 }

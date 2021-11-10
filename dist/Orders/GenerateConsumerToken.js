@@ -30,31 +30,36 @@ function GenerateConsumerToken(config, authorizationToken, consumerToken) {
                 "content-type": "application/json"
             }
         })
-            .then((response) => {
+            .then(({ data }) => {
             if (!config.isLive) {
-                console.log(response);
+                console.log(data);
             }
-            switch (response.status) {
-                case 200:
-                    resolve(response.data);
-                    return;
-                case 400:
-                    reject(new UnableToGenerateConsumerToken_1.UnableToGenerateConsumerToken());
-                    return;
-                case 403:
-                    reject(new CommonErrors_1.NotAuthorized());
-                    return;
-                case 404:
-                    reject(new CommonErrors_1.ResourceMissing());
-                    return;
-                case 409:
-                    reject(new CommonErrors_1.DataMismatch());
-                    return;
-                default:
-                    reject(new CommonErrors_1.UnknownError());
+            resolve(data);
+        })
+            .catch((error) => {
+            const { response } = error;
+            if (response) {
+                const { status } = response;
+                switch (status) {
+                    case 400:
+                        reject(new UnableToGenerateConsumerToken_1.UnableToGenerateConsumerToken());
+                        return;
+                    case 403:
+                        reject(new CommonErrors_1.NotAuthorized());
+                        return;
+                    case 404:
+                        reject(new CommonErrors_1.ResourceMissing());
+                        return;
+                    case 409:
+                        reject(new CommonErrors_1.DataMismatch());
+                        return;
+                    default:
+                        reject(new CommonErrors_1.UnknownError());
+                }
             }
-        }, (error) => {
-            reject(error);
+            else {
+                reject(error);
+            }
         });
     });
 }

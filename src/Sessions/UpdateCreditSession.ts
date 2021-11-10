@@ -1,5 +1,5 @@
 import { Config } from "../Config";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { generateAuth, URLS } from "../utils";
 import { UpdateCreditSessionPayload } from "./UpdateCreditSessionPayload";
 import { NotAuthorized, ResourceMissing, UnknownError } from "../CommonErrors";
@@ -29,28 +29,35 @@ import { UnableToUpdateCreditSession } from "./UnableToUpdateCreditSession";
                 "content-type": "application/json"
             }
         })
-        .then((response) => {
+        .then((response: AxiosResponse<void>) => {
             if (!config.isLive) {
                 console.log(response);
             }
-            switch(response.status) {
-                case 204:
-                    resolve();
-                    return;
-                case 400:
-                    reject(new UnableToUpdateCreditSession());
-                    return;
-                case 403:
-                    reject(new NotAuthorized());
-                    return;
-                case 404:
-                    reject(new ResourceMissing());
-                    return;
-                default:
-                    reject(new UnknownError());
+
+            resolve();
+        })
+        .catch((error: AxiosError) => {
+            const { response } = error;
+            
+            if (response) {
+                const { status } = response;
+
+                switch(status) {
+                    case 400:
+                        reject(new UnableToUpdateCreditSession());
+                        return;
+                    case 403:
+                        reject(new NotAuthorized());
+                        return;
+                    case 404:
+                        reject(new ResourceMissing());
+                        return;
+                    default:
+                        reject(new UnknownError());
+                }
+            } else {
+                reject(error);
             }
-        }, (error) => {
-            reject(error);
         });
     });
 }

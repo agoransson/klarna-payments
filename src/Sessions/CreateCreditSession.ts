@@ -1,5 +1,5 @@
 import { Config } from "../Config";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { generateAuth, URLS } from "../utils";
 import { CreateCreditSessionPayload } from "./CreateCreditSessionPayload";
 import { CreateCreditSessionResponse } from "./CreateCreditSessionResponse";
@@ -31,25 +31,32 @@ import { UnableToCreateCreditSession } from "./UnableToCreateCreditSession";
                 "content-type": "application/json"
             }
         })
-        .then((response) => {
+        .then(({ data }: AxiosResponse<CreateCreditSessionResponse>) => {
             if (!config.isLive) {
-                console.log(response);
+                console.log(data);
             }
-            switch(response.status) {
-                case 200:
-                    resolve(response.data);
-                    return;
-                case 400:
-                    reject(new UnableToCreateCreditSession());
-                    return;
-                case 403:
-                    reject(new NotAuthorized());
-                    return;
-                default:
-                    reject(new UnknownError());
+
+            resolve(data);
+        })
+        .catch((error: AxiosError) => {
+            const { response } = error;
+
+            if (response) {
+                const { status } = response;
+
+                switch(status) {
+                    case 400:
+                        reject(new UnableToCreateCreditSession());
+                        return;
+                    case 403:
+                        reject(new NotAuthorized());
+                        return;
+                    default:
+                        reject(new UnknownError());
+                }
+            } else {
+                reject(error);
             }
-        }, (error) => {
-            reject(error);
         });
     });
 }

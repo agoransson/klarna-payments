@@ -1,5 +1,4 @@
 import { KlarnaError } from "../CommonErrors";
-export declare class UnableToCreateOrder implements KlarnaError {
-    getCode(): number;
-    getMessage(): string;
+export declare class UnableToCreateOrder extends KlarnaError {
+    constructor();
 }

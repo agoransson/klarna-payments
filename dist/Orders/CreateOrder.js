@@ -28,37 +28,42 @@ const CommonErrors_1 = require("../CommonErrors");
 function CreateOrder(config, authorizationToken, order, recurring) {
     return new Promise((resolve, reject) => {
         const url = utils_1.URLS.API_URL(config) + utils_1.URLS.ORDER_API_URL(authorizationToken);
-        axios_1.default.post(url, order, {
+        axios_1.default.post(url, {
             headers: {
                 "Authorization": (0, utils_1.generateAuth)(config.username, config.password),
                 "content-type": "application/json"
             }
         })
-            .then((response) => {
+            .then(({ data }) => {
             if (!config.isLive) {
-                console.log(response);
+                console.log(data);
             }
-            switch (response.status) {
-                case 200:
-                    resolve(response.data);
-                    return;
-                case 400:
-                    reject(new UnableToCreateOrder_1.UnableToCreateOrder());
-                    return;
-                case 403:
-                    reject(new CommonErrors_1.NotAuthorized());
-                    return;
-                case 404:
-                    reject(new CommonErrors_1.ResourceMissing());
-                    return;
-                case 409:
-                    reject(new CommonErrors_1.DataMismatch());
-                    return;
-                default:
-                    reject(new CommonErrors_1.UnknownError());
+            resolve(data);
+        })
+            .catch((error) => {
+            const { response } = error;
+            if (response) {
+                const { status } = response;
+                switch (status) {
+                    case 400:
+                        reject(new UnableToCreateOrder_1.UnableToCreateOrder());
+                        return;
+                    case 403:
+                        reject(new CommonErrors_1.NotAuthorized());
+                        return;
+                    case 404:
+                        reject(new CommonErrors_1.ResourceMissing());
+                        return;
+                    case 409:
+                        reject(new CommonErrors_1.DataMismatch());
+                        return;
+                    default:
+                        reject(new CommonErrors_1.UnknownError());
+                }
             }
-        }, (error) => {
-            reject(error);
+            else {
+                reject(error);
+            }
         });
     });
 }

@@ -1,18 +1,16 @@
-export interface KlarnaError {
-    getCode?(): number;
-    getMessage?(): string;
+export declare abstract class KlarnaError extends Error {
+    code?: number;
+    constructor(message: string, code?: number);
 }
-export declare class UnknownError implements KlarnaError {
+export declare class UnknownError extends KlarnaError {
+    constructor();
 }
-export declare class NotAuthorized implements KlarnaError {
-    getCode(): number;
-    getMessage(): string;
+export declare class NotAuthorized extends KlarnaError {
+    constructor();
 }
-export declare class ResourceMissing implements KlarnaError {
-    getCode(): number;
-    getMessage(): string;
+export declare class ResourceMissing extends KlarnaError {
+    constructor();
 }
-export declare class DataMismatch implements KlarnaError {
-    getCode(): number;
-    getMessage(): string;
+export declare class DataMismatch extends KlarnaError {
+    constructor();
 }

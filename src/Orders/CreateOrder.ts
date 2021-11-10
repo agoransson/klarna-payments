@@ -1,5 +1,5 @@
 import { Config } from "../Config";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { generateAuth, URLS } from "../utils";
 import { CreateOrderPayload } from "./CreateOrderPayload";
 import { CreateOrderResponse } from "./CreateOrderResponse";
@@ -32,37 +32,44 @@ import { DataMismatch, NotAuthorized, ResourceMissing, UnknownError } from "../C
     return new Promise<CreateOrderResponse>((resolve, reject) => {
         const url = URLS.API_URL(config) + URLS.ORDER_API_URL(authorizationToken);
 
-        axios.post<CreateOrderPayload, AxiosResponse<CreateOrderResponse>>(url, order, {
+        axios.post<CreateOrderPayload, AxiosResponse<CreateOrderResponse>>(url, {
             headers: {
                 "Authorization": generateAuth(config.username, config.password),
                 "content-type": "application/json"
             }
         })
-        .then((response) => {
+        .then(({ data }: AxiosResponse<CreateOrderResponse>) => {
             if (!config.isLive) {
-                console.log(response);
+                console.log(data);
             }
-            switch(response.status) {
-                case 200:
-                    resolve(response.data);
-                    return;
-                case 400:
-                    reject(new UnableToCreateOrder());
-                    return;
-                case 403:
-                    reject(new NotAuthorized());
-                    return;
-                case 404:
-                    reject(new ResourceMissing());
-                    return;
-                case 409:
-                    reject(new DataMismatch());
-                    return;
-                default:
-                    reject(new UnknownError());
+
+            resolve(data);
+        })
+        .catch((error: AxiosError) => {
+            const { response } = error;
+            
+            if (response) {
+                const { status } = response;
+
+                switch(status) {
+                    case 400:
+                        reject(new UnableToCreateOrder());
+                        return;
+                    case 403:
+                        reject(new NotAuthorized());
+                        return;
+                    case 404:
+                        reject(new ResourceMissing());
+                        return;
+                    case 409:
+                        reject(new DataMismatch());
+                        return;
+                    default:
+                        reject(new UnknownError());
+                }
+            } else {
+                reject(error);
             }
-        }, (error) => {
-            reject(error);
         });
     });
 }

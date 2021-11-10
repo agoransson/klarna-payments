@@ -31,24 +31,29 @@ function UpdateCreditSession(config, sessionId, session) {
             if (!config.isLive) {
                 console.log(response);
             }
-            switch (response.status) {
-                case 204:
-                    resolve();
-                    return;
-                case 400:
-                    reject(new UnableToUpdateCreditSession_1.UnableToUpdateCreditSession());
-                    return;
-                case 403:
-                    reject(new CommonErrors_1.NotAuthorized());
-                    return;
-                case 404:
-                    reject(new CommonErrors_1.ResourceMissing());
-                    return;
-                default:
-                    reject(new CommonErrors_1.UnknownError());
+            resolve();
+        })
+            .catch((error) => {
+            const { response } = error;
+            if (response) {
+                const { status } = response;
+                switch (status) {
+                    case 400:
+                        reject(new UnableToUpdateCreditSession_1.UnableToUpdateCreditSession());
+                        return;
+                    case 403:
+                        reject(new CommonErrors_1.NotAuthorized());
+                        return;
+                    case 404:
+                        reject(new CommonErrors_1.ResourceMissing());
+                        return;
+                    default:
+                        reject(new CommonErrors_1.UnknownError());
+                }
             }
-        }, (error) => {
-            reject(error);
+            else {
+                reject(error);
+            }
         });
     });
 }

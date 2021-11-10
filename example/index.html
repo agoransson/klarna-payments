@@ -38,8 +38,8 @@
                         success: (data) => {
                             $("#set_account_result").val(JSON.stringify(data, null, 2));
                         },
-                        error: (xhr, status, error) => {
-                            console.error(error);
+                        error: (jqXHR, textStatus, errorThrown) => {
+                            console.error(textStatus);
                         }
                     });
 
@@ -56,7 +56,12 @@
                         dataType: "json",
                         success: (data) => {
                             $("#create_session_result").val(JSON.stringify(data, null, 2));
-                            $("input[name=authorizationToken]").val(data.authorizationToken);
+                            
+                            const { client_token } = data;
+
+                            if (!client_token) {
+                                return;
+                            }
                         
                             Klarna.Payments.init({
                                 client_token: data.client_token
@@ -69,15 +74,15 @@
                                 const { show_form } = res || undefined;
 
                                 if (show_form) {
-                                    // ?? Authorize?
+                                    $("#authorize").removeAttr("disabled");
                                 } else {
                                     const { error } = res;
                                     console.error(error)
                                 }
                             });
                         },
-                        error: (xhr, status, error) => {
-                            console.error(error);
+                        error: (jqXHR, textStatus, errorThrown) => {
+                            console.error(textStatus);
                         }
                     });
 
@@ -113,13 +118,11 @@
                         data: $("#create_session").serializeObject(),
                         dataType: "json",
                         success: (data) => {
-                            console.log('DATA');
-                            console.log(data)
                             $("#create_order_result").val(JSON.stringify(data, null, 2));
                             $("input[name=authorizationToken]").val(data.authorizationToken);
                         },
-                        error: (xhr, status, error) => {
-                            console.error(error);
+                        error: (jqXHR, textStatus, errorThrown) => {
+                            console.error(textStatus);
                         }
                     });
 
@@ -187,7 +190,7 @@
                 </div>
                 <div class="col">
                     <h5>4. Client-side (authorization)</h5>
-                    <button id="authorize" class="btn btn-primary">Authorize purchase</button>
+                    <button id="authorize" class="btn btn-primary" disabled>Authorize purchase</button>
                     
                     <textarea class="form-control" id="authorize_result" rows="5" readonly></textarea>
                 </div>
