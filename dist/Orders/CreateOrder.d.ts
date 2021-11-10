@@ -16,7 +16,6 @@ import { CreateOrderResponse } from "./CreateOrderResponse";
  * @param config
  * @param authorizationToken
  * @param order
- * @param recurring
  * @returns
  */
 export declare function CreateOrder(config: Config, authorizationToken: string, order: CreateOrderPayload, recurring?: boolean): Promise<CreateOrderResponse>;

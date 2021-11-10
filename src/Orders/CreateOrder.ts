@@ -18,10 +18,9 @@ import { DataMismatch, NotAuthorized, ResourceMissing, UnknownError } from "../C
  * When the Order has been successfully placed at Klarna, you need to handle it
  * either through the Merchant Portal or using Klarna’s Order Management API.
  * 
- * @param config 
- * @param authorizationToken 
- * @param order 
- * @param recurring 
+ * @param config
+ * @param authorizationToken
+ * @param order
  * @returns 
  */
  export function CreateOrder(
@@ -31,7 +30,7 @@ import { DataMismatch, NotAuthorized, ResourceMissing, UnknownError } from "../C
     recurring?: boolean
 ): Promise<CreateOrderResponse> {
     return new Promise<CreateOrderResponse>((resolve, reject) => {
-        const url = URLS.API_URL(config) + URLS.ORDER_API_URL(recurring ? recurring : false, authorizationToken);
+        const url = URLS.API_URL(config) + URLS.ORDER_API_URL(authorizationToken);
 
         axios.post<CreateOrderPayload, AxiosResponse<CreateOrderResponse>>(url, order, {
             headers: {

@@ -22,7 +22,7 @@ type PaymentsProps = {
 type OrdersVersion100 = {
     cancelAuthorization: (authorizationToken: string) => Promise<void>,
     generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => Promise<GenerateConsumerTokenResponse>,
-    createOrder: (authorizationToken: string, order: CreateOrderPayload, recurring: boolean) => Promise<CreateOrderResponse>
+    createOrder: (authorizationToken: string, order: CreateOrderPayload) => Promise<CreateOrderResponse>
 }
 
 type SessionsVersion100 = {
@@ -48,8 +48,8 @@ export class Payments {
             generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => (
                 GenerateConsumerToken(this.config, authorizationToken, consumerToken)
             ),
-            createOrder: (authorizationToken: string, order: CreateOrderPayload, recurring: boolean = false) => (
-                CreateOrder(this.config, authorizationToken, order, recurring)
+            createOrder: (authorizationToken: string, order: CreateOrderPayload) => (
+                CreateOrder(this.config, authorizationToken, order)
             )
         },
         sessions: {

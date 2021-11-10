@@ -11,15 +11,7 @@ exports.URLS = {
     API_URL: (config) => (config.isLive
         ? `https://api${config.region}.klarna.com`
         : `https://api${config.region}.playground.klarna.com`),
-    ORDER_API_URL: (subscription, authorizationToken) => {
-        if (subscription) {
-            // TODO: How does subscriptions really work?
-            throw new Error("Subscription not supported yet!");
-        }
-        else {
-            return `/payments/v1/authorizations/${authorizationToken}/order`;
-        }
-    },
+    ORDER_API_URL: (authorizationToken) => (`/payments/v1/authorizations/${authorizationToken}/order`),
     CANCEL_AUTHORIZATION_API_URL: (authorizationToken) => (`/payments/v1/authorizations/${authorizationToken}`),
     CREDIT_SESSION_API_URL: (sessionId) => (sessionId ? `/payments/v1/sessions/${sessionId}`
         : "/payments/v1/sessions"),

@@ -6,7 +6,7 @@ export declare enum REGION {
 }
 export declare const URLS: {
     API_URL: (config: Config) => string;
-    ORDER_API_URL: (subscription: boolean, authorizationToken: string) => string;
+    ORDER_API_URL: (authorizationToken: string) => string;
     CANCEL_AUTHORIZATION_API_URL: (authorizationToken: string) => string;
     CREDIT_SESSION_API_URL: (sessionId?: string) => string;
     CONSUMER_TOKEN_API_URL: (authorizationToken: string) => string;

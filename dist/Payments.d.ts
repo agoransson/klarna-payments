@@ -17,7 +17,7 @@ declare type PaymentsProps = {
 declare type OrdersVersion100 = {
     cancelAuthorization: (authorizationToken: string) => Promise<void>;
     generateConsumerToken: (authorizationToken: string, consumerToken: GenerateConsumerTokenPayload) => Promise<GenerateConsumerTokenResponse>;
-    createOrder: (authorizationToken: string, order: CreateOrderPayload, recurring: boolean) => Promise<CreateOrderResponse>;
+    createOrder: (authorizationToken: string, order: CreateOrderPayload) => Promise<CreateOrderResponse>;
 };
 declare type SessionsVersion100 = {
     createCreditSession: (session: CreateCreditSessionPayload) => Promise<CreateCreditSessionResponse>;

@@ -23,12 +23,11 @@ const CommonErrors_1 = require("../CommonErrors");
  * @param config
  * @param authorizationToken
  * @param order
- * @param recurring
  * @returns
  */
 function CreateOrder(config, authorizationToken, order, recurring) {
     return new Promise((resolve, reject) => {
-        const url = utils_1.URLS.API_URL(config) + utils_1.URLS.ORDER_API_URL(recurring ? recurring : false, authorizationToken);
+        const url = utils_1.URLS.API_URL(config) + utils_1.URLS.ORDER_API_URL(authorizationToken);
         axios_1.default.post(url, order, {
             headers: {
                 "Authorization": (0, utils_1.generateAuth)(config.username, config.password),

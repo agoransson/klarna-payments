@@ -12,14 +12,9 @@ export const URLS = {
             ? `https://api${config.region}.klarna.com` 
             : `https://api${config.region}.playground.klarna.com`
     ),
-    ORDER_API_URL: (subscription: boolean, authorizationToken: string) => {
-        if (subscription) {
-            // TODO: How does subscriptions really work?
-            throw new Error("Subscription not supported yet!");
-        } else {
-            return `/payments/v1/authorizations/${authorizationToken}/order`;
-        }
-    },
+    ORDER_API_URL: (authorizationToken: string) => (
+        `/payments/v1/authorizations/${authorizationToken}/order`
+    ),
     CANCEL_AUTHORIZATION_API_URL: (authorizationToken: string) => (
         `/payments/v1/authorizations/${authorizationToken}`
     ),

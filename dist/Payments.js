@@ -23,7 +23,7 @@ class Payments {
             orders: {
                 cancelAuthorization: (authorizationToken) => ((0, Orders_1.CancelAuthorization)(this.config, authorizationToken)),
                 generateConsumerToken: (authorizationToken, consumerToken) => ((0, Orders_1.GenerateConsumerToken)(this.config, authorizationToken, consumerToken)),
-                createOrder: (authorizationToken, order, recurring = false) => ((0, Orders_1.CreateOrder)(this.config, authorizationToken, order, recurring))
+                createOrder: (authorizationToken, order) => ((0, Orders_1.CreateOrder)(this.config, authorizationToken, order))
             },
             sessions: {
                 createCreditSession: (session) => ((0, Sessions_1.CreateCreditSession)(this.config, session)),
