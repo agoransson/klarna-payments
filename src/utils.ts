@@ -7,7 +7,7 @@ export enum Region {
     OCEANIA
 }
 
-const getRegionValue = (region: Region): string => {
+export const getRegionValue = (region: Region): string => {
     switch (region) {
         case Region.EU:
             return "";
@@ -17,6 +17,18 @@ const getRegionValue = (region: Region): string => {
             return "-oc";
         default:
             throw new RegionError();
+    }
+}
+
+export const getRegion = (region: string): Region => {
+    if (region == "") {
+        return Region.EU;
+    } else if (region == "-na") {
+        return Region.US;
+    } else if (region == "-oc") {
+        return Region.OCEANIA;
+    } else {
+        throw new RegionError();
     }
 }
 

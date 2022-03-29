@@ -4,6 +4,8 @@ export declare enum Region {
     US = 1,
     OCEANIA = 2
 }
+export declare const getRegionValue: (region: Region) => string;
+export declare const getRegion: (region: string) => Region;
 export declare const URLS: {
     API_URL: (config: Config) => string;
     ORDER_API_URL: (authorizationToken: string) => string;
