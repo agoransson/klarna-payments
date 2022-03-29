@@ -22,13 +22,14 @@ const getRegionValue = (region) => {
 };
 exports.getRegionValue = getRegionValue;
 const getRegion = (region) => {
-    if (region == "") {
+    const trimmed = region.trim().toLowerCase();
+    if (trimmed == "") {
         return Region.EU;
     }
-    else if (region == "-na") {
+    else if (trimmed == "-na") {
         return Region.US;
     }
-    else if (region == "-oc") {
+    else if (trimmed == "-oc") {
         return Region.OCEANIA;
     }
     else {

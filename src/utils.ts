@@ -21,11 +21,12 @@ export const getRegionValue = (region: Region): string => {
 }
 
 export const getRegion = (region: string): Region => {
-    if (region == "") {
+    const trimmed = region.trim().toLowerCase();
+    if (trimmed == "") {
         return Region.EU;
-    } else if (region == "-na") {
+    } else if (trimmed == "-na") {
         return Region.US;
-    } else if (region == "-oc") {
+    } else if (trimmed == "-oc") {
         return Region.OCEANIA;
     } else {
         throw new RegionError();

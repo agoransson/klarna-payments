@@ -1,6 +1,6 @@
 {
   "name": "@agoransson/klarna-payments",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Typescript wrapper for Klarna Payments API.",
   "main": "dist/Payments.js",
   "types": "dist/Payments.d.ts",
