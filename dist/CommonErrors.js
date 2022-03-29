@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DataMismatch = exports.ResourceMissing = exports.NotAuthorized = exports.UnknownError = exports.KlarnaError = void 0;
+exports.RegionError = exports.DataMismatch = exports.ResourceMissing = exports.NotAuthorized = exports.UnknownError = exports.KlarnaError = void 0;
 class KlarnaError extends Error {
     constructor(message, code) {
         super(message);
@@ -34,4 +34,10 @@ class DataMismatch extends KlarnaError {
     }
 }
 exports.DataMismatch = DataMismatch;
+class RegionError extends Error {
+    constructor() {
+        super("Region is either unknown, or missing!");
+    }
+}
+exports.RegionError = RegionError;
 //# sourceMappingURL=CommonErrors.js.map

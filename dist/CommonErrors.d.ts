@@ -14,3 +14,6 @@ export declare class ResourceMissing extends KlarnaError {
 export declare class DataMismatch extends KlarnaError {
     constructor();
 }
+export declare class RegionError extends Error {
+    constructor();
+}

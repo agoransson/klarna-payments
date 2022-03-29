@@ -1,16 +1,30 @@
+import { RegionError } from "./CommonErrors";
 import { Config } from "./Config";
 
-export enum REGION {
-    EU = "",
-    US = "-na",
-    OCEANIA = "-oc"
+export enum Region {
+    EU,
+    US,
+    OCEANIA
+}
+
+const getRegionValue = (region: Region): string => {
+    switch (region) {
+        case Region.EU:
+            return "";
+        case Region.US:
+            return "-na";
+        case Region.OCEANIA:
+            return "-oc";
+        default:
+            throw new RegionError();
+    }
 }
 
 export const URLS = {
     API_URL: (config: Config) => (
         config.isLive 
-            ? `https://api${config.region}.klarna.com` 
-            : `https://api${config.region}.playground.klarna.com`
+            ? `https://api${getRegionValue(config?.region)}.klarna.com` 
+            : `https://api${getRegionValue(config?.region)}.playground.klarna.com`
     ),
     ORDER_API_URL: (authorizationToken: string) => (
         `/payments/v1/authorizations/${authorizationToken}/order`

@@ -1,8 +1,8 @@
-import { REGION } from "./utils";
+import { Region } from "./utils";
 
 export type Config = {
     isLive: boolean;
-    region: REGION;
+    region: Region;
 
     username: string;
     password: string;

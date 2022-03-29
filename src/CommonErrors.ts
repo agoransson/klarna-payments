@@ -33,3 +33,9 @@ export class DataMismatch extends KlarnaError {
         super("The data in the request does not match the session for the authorization", 409);
     }
 }
+
+export class RegionError extends Error {
+    constructor() {
+        super("Region is either unknown, or missing!");
+    }
+}

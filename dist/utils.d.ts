@@ -1,8 +1,8 @@
 import { Config } from "./Config";
-export declare enum REGION {
-    EU = "",
-    US = "-na",
-    OCEANIA = "-oc"
+export declare enum Region {
+    EU = 0,
+    US = 1,
+    OCEANIA = 2
 }
 export declare const URLS: {
     API_URL: (config: Config) => string;
