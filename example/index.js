@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { Payments } = require('../dist/Payments.js');
-const { REGION } = require('../dist/utils');
+const { Region, getRegion } = require('../dist/utils');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 app.post('/init', (req, res) => {
     const { region } = req.body;
 
-    const config = {...req.body, region: REGION[region]};
+    const config = {...req.body, region: getRegion(region.trim())};
 
     payments = new Payments({
         config
@@ -34,11 +34,13 @@ app.post('/init', (req, res) => {
 app.post('/createCreditSession', async (req, res) => {
     const session = {...req.body};
 
+    console.log(req.body);
     try {
         const result = await payments.v100.sessions.createCreditSession(session);
 
         res.send(result);
     } catch (error) {
+        console.log(error);
         res.send(error);
     }
 });
